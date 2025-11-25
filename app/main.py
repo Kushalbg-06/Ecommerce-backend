@@ -1,6 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends, HTTPException,status
+from . import models,schemas,hashing
+from .database import engine,SessionLocal,get_db
+from sqlalchemy.orm import Session
 app=FastAPI()
 
-@app.get('/')
-def get():
-    return {"data":"server running on the port 8000"}
+models.Base.metadata.create_all(bind=engine)
+
+@app.get('/',tags=['home'])
+def home():
+    return {'message': 'server is running'}

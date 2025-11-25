@@ -54,8 +54,8 @@ class OrderItemResponse(BaseModel):
         orm_mode = True
 class OrderResponse(BaseModel):
     id:int
-    total_amount=float
-    create_at=datetime
+    total_amount:float
+    create_at:datetime
     items:List[OrderItemResponse]
 
     class Config:
