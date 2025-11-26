@@ -12,8 +12,9 @@ class UserResponse(BaseModel):
     name:str
     email:str
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class ProductCreate(BaseModel):
     name:str
@@ -28,8 +29,9 @@ class ProductResponse(BaseModel):
     stock:int
     discription:Optional[str]
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class CratCreate(BaseModel):
     product_id:int
@@ -41,8 +43,9 @@ class CartResponse(BaseModel):
     product_id:int
     quantity:int
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class OrderItemResponse(BaseModel):
     id:int
@@ -50,13 +53,15 @@ class OrderItemResponse(BaseModel):
     quantity:int
     price:float
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 class OrderResponse(BaseModel):
     id:int
     total_amount:float
     create_at:datetime
     items:List[OrderItemResponse]
 
-    class Config:
-        orm_mode = True   
+    model_config = {
+        "from_attributes": True
+    }    
