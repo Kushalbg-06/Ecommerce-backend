@@ -40,7 +40,7 @@ class Order(Base):
      id=Column(Integer,primary_key=True,index=True)
      user_id=Column(Integer,ForeignKey("users.id"))
      total_amount=Column(Float)
-     creared_at=Column(DateTime,default=datetime.utcnow)
+     create_at=Column(DateTime,default=datetime.utcnow)
      #relationship
      user=relationship("User",back_populates="order")
      items=relationship("OrderItem",back_populates="order")

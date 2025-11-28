@@ -33,7 +33,7 @@ class ProductResponse(BaseModel):
         "from_attributes": True
     }
 
-class CratCreate(BaseModel):
+class CartCreate(BaseModel):
     product_id:int
     quantity:int
 
