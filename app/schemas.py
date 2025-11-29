@@ -16,6 +16,19 @@ class UserResponse(BaseModel):
         "from_attributes": True
     }
 
+    
+class Login(BaseModel):
+    email:str
+    password:str
+
+class Token(BaseModel):
+    access_token:str
+    token_type:str
+
+class TokenData(BaseModel):
+    sub: Optional[str] = None
+    
+
 class ProductCreate(BaseModel):
     name:str
     price:float

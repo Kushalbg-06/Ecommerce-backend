@@ -1,8 +1,9 @@
 from fastapi import APIRouter,Depends,HTTPException,status
 from sqlalchemy.orm import Session
 from ..database import get_db
-from .. import models,schemas,database
+from .. import models,schemas
 from typing import List
+from app.authentication.oauth2 import get_current_user 
 
 router=APIRouter(
    prefix="/cart",
@@ -10,12 +11,12 @@ router=APIRouter(
 )
 
 @router.post('/add',response_model=schemas.CartResponse,status_code=status.HTTP_201_CREATED)
-def additem_cart(item:schemas.CartCreate,db:Session=Depends(get_db)):
+def additem_cart(item:schemas.CartCreate,db:Session=Depends(get_db),current_user = Depends(get_current_user)):
     new_item=db.query(models.Product).filter(models.Product.id==item.product_id).first()
     if not new_item:
         raise HTTPException(404,detail="product not found")
     new_item=models.Cart(
-        user_id=1,
+        user_id=current_user.id,
         product_id=item.product_id,
         quantity=item.quantity
     )
@@ -25,13 +26,13 @@ def additem_cart(item:schemas.CartCreate,db:Session=Depends(get_db)):
     return new_item
 
 @router.get("/",response_model=List[schemas.CartResponse],status_code=status.HTTP_200_OK)
-def get_all(db:Session=Depends(get_db)):
-    items=db.query(models.Cart).filter(models.Cart.user_id==1).all()
+def get_all(db:Session=Depends(get_db),current_user = Depends(get_current_user)):
+    items=db.query(models.Cart).filter(models.Cart.user_id==current_user.id).all()
     return items
 
 @router.delete("/{id}",status_code=status.HTTP_200_OK)
-def delete_items(id:int,db:Session=Depends(get_db)):
-    cart_items=db.query(models.Cart).filter(models.Cart.id==id).first()
+def delete_items(id:int,db:Session=Depends(get_db),current_user = Depends(get_current_user)):
+    cart_items=db.query(models.Cart).filter(models.Cart.id==id,models.Cart.user_id == current_user.id).first()
     if not cart_items:
         raise HTTPException(404,detail="cart items not found")
     db.delete(cart_items)

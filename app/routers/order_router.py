@@ -2,18 +2,21 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
+from app.authentication.oauth2 import get_current_user
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
 
 # PLACE ORDER
 @router.post("/place", response_model=schemas.OrderResponse)
-def place_order(db: Session = Depends(get_db)):
-    cart_items = db.query(models.Cart).filter(models.Cart.user_id == 1).all()
+def place_order(db: Session = Depends(get_db),current_user = Depends(get_current_user)):
+    cart_items = db.query(models.Cart).filter(models.Cart.user_id == current_user.id).all()
     if not cart_items:
         raise HTTPException(status_code=400, detail="Cart is empty")
     total = sum(i.quantity * i.product.price for i in cart_items)
-    order = models.Order(user_id=1, total_amount=total)
+    order = models.Order( 
+     user_id=current_user.id,
+     total_amount=total)
     db.add(order)
     db.commit()
     db.refresh(order)
@@ -35,5 +38,5 @@ def place_order(db: Session = Depends(get_db)):
 
 # GET ALL ORDERS
 @router.get("/", response_model=list[schemas.OrderResponse])
-def get_orders(db: Session = Depends(get_db)):
-    return db.query(models.Order).all()
+def get_orders(db: Session = Depends(get_db),current_user = Depends(get_current_user)):
+    return db.query(models.Order.user_id==current_user.id).all()
