@@ -39,4 +39,5 @@ def place_order(db: Session = Depends(get_db),current_user = Depends(get_current
 # GET ALL ORDERS
 @router.get("/", response_model=list[schemas.OrderResponse])
 def get_orders(db: Session = Depends(get_db),current_user = Depends(get_current_user)):
-    return db.query(models.Order.user_id==current_user.id).all()
+    return db.query(models.Order).filter(models.Order.user_id == current_user.id).all()
+
