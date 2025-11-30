@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 pydantic
-passlib[bcrypt]
+sqlalchemy
+passlib[argon2]
 python-jose[cryptography]
