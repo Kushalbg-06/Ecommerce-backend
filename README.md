@@ -16,10 +16,7 @@ A REST API for a simple ecommerce store built with [FastAPI](https://fastapi.tia
 | Framework    | FastAPI                             |
 | ORM          | SQLAlchemy                          |
 | Database     | SQLite (`database.db`)              |
-| Validation   | Pydantic                            |
-| Passwords    | Passlib (Argon2)                    |
-| Auth tokens  | python-jose (JWT)                   |
-| Server       | Uvicorn                             |
+
 
 ## Project Structure
 
