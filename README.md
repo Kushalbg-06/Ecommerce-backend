@@ -179,6 +179,3 @@ Placing an order calculates the total from cart items, creates `Order` and `Orde
 - The database file path is set in `app/database.py` as `sqlite:///./database.db`.
 - JWT settings (`SECRET_KEY`, `ALGORITHM`, `ACCESS_TOKEN_EXPIRE_MINUTES`) live in `app/authentication/token.py`. For production, use environment variables and a strong secret key instead of a hardcoded value.
 
-## License
-
-This project is provided as-is for learning and development. Add a license file if you plan to distribute it.
