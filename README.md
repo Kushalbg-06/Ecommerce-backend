@@ -4,7 +4,7 @@ A REST API for a simple ecommerce store built with [FastAPI](https://fastapi.tia
 
 ## Features
 
-- **User authentication** — Register, login, and JWT bearer tokens (30-minute expiry)
+- **User authentication** — Register, login, and JWT bearer tokens 
 - **Products** — Create, list, fetch by ID, and delete products
 - **Shopping cart** — Add items, view cart, and remove items (per authenticated user)
 - **Orders** — Place an order from the cart and view order history
@@ -49,7 +49,7 @@ ecommerce/
 
 1. Clone or download this repository.
 
-2. Create and activate a virtual environment (recommended):
+2. Create and activate a virtual environment:
 
    ```bash
    python -m venv venv
