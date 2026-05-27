@@ -163,16 +163,7 @@ Placing an order calculates the total from cart items, creates `Order` and `Orde
 - **Cart** — Links `user_id`, `product_id`, and `quantity`
 - **Order** — `user_id`, `total_amount`, `create_at`
 - **OrderItem** — Line items for each order (`product_id`, `quantity`, `price`)
-
-## Example Workflow
-
-1. Register: `POST /user/register`
-2. Login: `POST /user/login` → save `access_token`
-3. Add products: `POST /product/` (with Bearer token)
-4. Browse: `GET /product/`
-5. Add to cart: `POST /cart/add` (with Bearer token)
-6. Checkout: `POST /orders/place` (with Bearer token)
-7. View orders: `GET /orders/` (with Bearer token)
+ 
 
 ## Configuration Notes
 
